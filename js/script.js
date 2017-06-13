@@ -1,7 +1,7 @@
 /**
  * Create the module. Set it up to use html5 mode.
  */
-window.MyOpenRecipes = angular.module('myOpenRecipes', ['elasticsearch'],
+window.MyOpennutch = angular.module('myOpennutch', ['elasticsearch'],
     ['$locationProvider', function($locationProvider){
         $locationProvider.html5Mode(true);
     }]
@@ -11,14 +11,14 @@ window.MyOpenRecipes = angular.module('myOpenRecipes', ['elasticsearch'],
  * Create a service to power calls to Elasticsearch. We only need to
  * use the _search endpoint.
  */
-MyOpenRecipes.factory('recipeService',
+MyOpennutch.factory('docservice',
     ['$q', 'esFactory', '$location', function($q, elasticsearch, $location){
         var client = elasticsearch({
             host: $location.host() + ":9200"
         });
 
         /**
-         * Given a term and an offset, load another round of 10 recipes.
+         * Given a term and an offset, load another round of 10 nutch.
          *
          * Returns a promise.
          */
@@ -31,8 +31,8 @@ MyOpenRecipes.factory('recipeService',
             };
 
             client.search({
-                "index": 'recipes',
-                "type": 'recipe',
+                "index": 'nutch',
+                "type": 'doc',
                 "body": {
                     "size": 10,
                     "from": (offset || 0) * 10,
@@ -60,14 +60,14 @@ MyOpenRecipes.factory('recipeService',
 /**
  * Create a controller to interact with the UI.
  */
-MyOpenRecipes.controller('recipeCtrl',
-    ['recipeService', '$scope', '$location', function(recipes, $scope, $location){
+MyOpennutch.controller('docCtrl',
+    ['docservice', '$scope', '$location', function(nutch, $scope, $location){
         // Provide some nice initial choices
         var initChoices = [];
         var idx = Math.floor(Math.random() * initChoices.length);
 
         // Initialize the scope defaults.
-        $scope.recipes = [];        // An array of recipe results to display
+        $scope.nutch = [];        // An array of doc results to display
         $scope.page = 0;            // A counter to keep track of our current page
         $scope.allResults = false;  // Whether or not all results have been found.
 
@@ -80,7 +80,7 @@ MyOpenRecipes.controller('recipeCtrl',
          */
         $scope.search = function(){
             $scope.page = 0;
-            $scope.recipes = [];
+            $scope.nutch = [];
             $scope.allResults = false;
             $location.search({'q': $scope.searchTerm});
             $scope.loadMore();
@@ -88,18 +88,18 @@ MyOpenRecipes.controller('recipeCtrl',
 
         /**
          * Load the next page of results, incrementing the page counter.
-         * When query is finished, push results onto $scope.recipes and decide
+         * When query is finished, push results onto $scope.nutch and decide
          * whether all results have been returned (i.e. were 10 results returned?)
          */
         $scope.loadMore = function(){
-            recipes.search($scope.searchTerm, $scope.page++).then(function(results){
+            nutch.search($scope.searchTerm, $scope.page++).then(function(results){
                 if(results.length !== 10){
                     $scope.allResults = true;
                 }
 
                 var ii = 0;
                 for(;ii < results.length; ii++){
-                    $scope.recipes.push(results[ii]);
+                    $scope.nutch.push(results[ii]);
                 }
             });
         };

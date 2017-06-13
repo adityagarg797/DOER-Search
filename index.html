@@ -10,7 +10,7 @@
   </head>
   <body class='index'>
     <div class='container'>
-      <div ng-app='myOpenRecipes' ng-controller='recipeCtrl'>
+      <div ng-app='myOpennutch' ng-controller='docCtrl'>
         <header>
           <h1>DOER Search</h1>
         </header>
@@ -21,15 +21,15 @@
           </form>
         </section>
         <section class='results'>
-          <div class='no-recipes' ng-hide='recipes.length'>No results</div>
-          <article class='recipe' ng-cloak ng-repeat='recipe in recipes'>
+          <div class='no-nutch' ng-hide='nutch.length'>No results</div>
+          <article class='doc' ng-cloak ng-repeat='doc in nutch'>
             <h2>
-              <a ng-href='{{recipe.url}}'>{{recipe.title}}</a>
+              <a ng-href='{{doc.url}}'>{{doc.title}}</a>
             </h2>
            
             <p>
-              {{recipe.content}}
-              <a ng-href='{{recipe.url}}'>... more at {{recipe.source}}</a>
+              {{doc.content}}
+              <a ng-href='{{doc.url}}'>... more at {{doc.source}}</a>
             </p>
           </article>
           <div class='load-more' ng-cloak ng-hide='allResults'>
