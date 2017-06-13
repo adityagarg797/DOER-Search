@@ -63,16 +63,7 @@ MyOpenRecipes.factory('recipeService',
 MyOpenRecipes.controller('recipeCtrl',
     ['recipeService', '$scope', '$location', function(recipes, $scope, $location){
         // Provide some nice initial choices
-        var initChoices = [
-            "rendang",
-            "nasi goreng",
-            "pad thai",
-            "pizza",
-            "lasagne",
-            "ice cream",
-            "schnitzel",
-            "hummous"
-        ];
+        var initChoices = [];
         var idx = Math.floor(Math.random() * initChoices.length);
 
         // Initialize the scope defaults.
