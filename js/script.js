@@ -25,10 +25,22 @@ MyOpennutch.factory('docservice',
         var search = function(term, offset){
             var deferred = $q.defer();
             var query = {
-                "match": {
-                    "_all": term
-                }
-            };
+                "bool":{
+					"should":{
+						"match":{
+							"title":term
+								}
+							},
+					"must": {
+						"match":{
+							"_all":term
+								}
+							}
+				
+				       }
+           				 };
+
+
 
             client.search({
                 "index": 'nutch',
