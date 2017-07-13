@@ -26,19 +26,19 @@ MyOpennutch.factory('docservice',
             var deferred = $q.defer();
             var query = {
                 "bool":{
-					"should":{
-						"match":{
-							"title":term
-								}
-							},
-					"must": {
-						"match":{
-							"_all":term
-								}
-							}
-				
-				       }
-           				 };
+          "should":{
+            "match":{
+              "title":term
+                }
+              },
+          "must": {
+            "match":{
+              "_all":term
+                }
+              }
+        
+               }
+                   };
 
 
 
